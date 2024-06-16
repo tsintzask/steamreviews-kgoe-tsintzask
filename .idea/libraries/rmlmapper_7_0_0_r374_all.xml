@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="rmlmapper-7.0.0-r374-all">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/rmlmapper-7.0.0-r374-all.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/rmlmapper-7.0.0-r374-all.jar!/" />
+    </SOURCES>
+  </library>
+</component>

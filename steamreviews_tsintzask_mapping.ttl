@@ -1,0 +1,153 @@
+@prefix : <http://www.semanticweb.org/owl/owlapi/turtle#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
+@prefix ql: <http://semweb.mmlab.be/ns/ql#> .
+@prefix vgo: <http://purl.org/net/VideoGameOntology#> .
+@prefix grts: <http://www.semanticweb.org/tsintzask/ontologies/2024/6/steamreviews-tsintzask#> .
+@base <http://www.semanticweb.org/tsintzask/ontologies/2024/6/steamreviews-tsintzask#> .
+
+<#ReviewMapping> a rr:TriplesMap;
+	rml:logicalSource [
+		rml:source "steam_reviews_dataset.csv" ;
+		rml:referenceFormulation ql:CSV ;
+	];
+
+	rr:subjectMap [
+		rml:reference "index" ;
+		rr:class grts:GameReview ;
+	].
+
+<#GameMapping> a rr:TriplesMap;
+	rml:logicalSource [
+		rml:source "steam_reviews_dataset.csv" ;
+		rml:referenceFormulation ql:CSV ;
+	];
+
+	rr:subjectMap [
+		rml:reference "game" ;
+		rr:class vgo:Game ;
+	].
+
+<#UserMapping> a rr:TriplesMap;
+	rml:logicalSource [
+		rml:source "steam_reviews_dataset.csv" ;
+		rml:referenceFormulation ql:CSV ;
+	];
+
+	rr:subjectMap [
+		rml:reference "reviewer" ;
+		rr:class grts:SteamUser ;
+	].
+
+<#UserReviewMapping> a rr:TriplesMap;
+	rml:logicalSource [
+		rml:source "steam_reviews_dataset.csv" ;
+		rml:referenceFormulation ql:CSV ;
+	];
+
+	rr:subjectMap [
+		rml:reference "reviewer" ;
+		rr:class grts:SteamUser ;
+	];
+
+	rr:predicateObjectMap [
+		rr:predicate grts:Wrote ;
+		rr:objectMap [
+			rr:parentTriplesMap <#ReviewMapping>;
+		]
+	].
+
+<#GameReviewMapping> a rr:TriplesMap;
+	rml:logicalSource [
+		rml:source "steam_reviews_dataset.csv" ;
+		rml:referenceFormulation ql:CSV ;
+	];
+
+	rr:subjectMap [
+		rml:reference "game" ;
+		rr:class vgo:Game ;
+	];
+
+	rr:predicateObjectMap [
+		rr:predicate grts:HasReview ;
+		rr:objectMap [
+			rr:parentTriplesMap <#ReviewMapping>;
+		]
+	].
+
+<#ReviewUserMapping> a rr:TriplesMap;
+	rml:logicalSource [
+		rml:source "steam_reviews_dataset.csv" ;
+		rml:referenceFormulation ql:CSV ;
+	];
+
+	rr:subjectMap [
+		rml:reference "index" ;
+		rr:class grts:GameReview ;
+	];
+
+	rr:predicateObjectMap [
+		rr:predicate grts:WrittenBy ;
+		rr:objectMap [
+			rr:parentTriplesMap <#UserMapping>;
+		]
+	].
+
+<#ReviewGameMapping> a rr:TriplesMap;
+	rml:logicalSource [
+		rml:source "steam_reviews_dataset.csv" ;
+		rml:referenceFormulation ql:CSV ;
+	];
+
+	rr:subjectMap [
+		rml:reference "index" ;
+		rr:class grts:GameReview ;
+	];
+
+	rr:predicateObjectMap [
+		rr:predicate grts:AboutGame ;
+		rr:objectMap [
+			rr:parentTriplesMap <#GameMapping>;
+		]
+	].
+
+<#ReviewRatingMapping> a rr:TriplesMap;
+	rml:logicalSource [
+		rml:source "steam_reviews_dataset.csv" ;
+		rml:referenceFormulation ql:CSV ;
+	];
+
+	rr:subjectMap [
+		rml:reference "index" ;
+		rr:class grts:GameReview ;
+	];
+
+	rr:predicateObjectMap [
+		rr:predicate grts:PositiveRating ;
+		rr:objectMap [
+			rml:reference "sentiment";
+			rr:datatype xsd:boolean
+		]
+	].
+
+<#ReviewTextMapping> a rr:TriplesMap;
+	rml:logicalSource [
+		rml:source "steam_reviews_dataset.csv" ;
+		rml:referenceFormulation ql:CSV ;
+	];
+
+	rr:subjectMap [
+		rml:reference "index" ;
+		rr:class grts:GameReview ;
+	];
+
+	rr:predicateObjectMap [
+		rr:predicate grts:ReviewContent ;
+		rr:objectMap [
+			rml:reference "raw_text";
+			rr:datatype xsd:string
+		]
+	].
